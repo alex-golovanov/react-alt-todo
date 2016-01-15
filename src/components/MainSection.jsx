@@ -136,7 +136,7 @@ class MainSection extends React.Component {
 		}
 
 		return (
-			<div>
+			<div id="main-container" className="center-block">
 				<header className="header">
 					<h1>Todos</h1>
 					<input

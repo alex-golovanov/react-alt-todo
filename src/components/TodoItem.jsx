@@ -41,14 +41,6 @@ class TodoItem extends React.Component {
 		this.setState({editText: event.target.value});
 	}
 
-
-	/**
-	 * This is a completely optional performance enhancement that you can
-	 * implement on any React component. If you were to delete this method
-	 * the app would still work correctly (and still be very performant!), we
-	 * just use it as an example of how little code it takes to get an order
-	 * of magnitude performance improvement.
-	 */
 	shouldComponentUpdate(nextProps, nextState) {
 		return (
 			nextProps.todo !== this.props.todo ||
@@ -57,12 +49,6 @@ class TodoItem extends React.Component {
 		);
 	}
 
-	/**
-	 * Safely manipulate the DOM after updating the state when invoking
-	 * `this.props.onEdit()` in the `handleEdit` method above.
-	 * For more info refer to notes at https://facebook.github.io/react/docs/component-api.html#setstate
-	 * and https://facebook.github.io/react/docs/component-specs.html#updating-componentdidupdate
-	 */
 	componentDidUpdate(prevProps) {
 		if (!prevProps.editing && this.props.editing) {
 			var node = ReactDOM.findDOMNode(this.refs.editField);
@@ -87,7 +73,9 @@ class TodoItem extends React.Component {
 					<label onDoubleClick={this.handleEdit.bind(this)}>
 						{this.props.todo.title}
 					</label>
-					<button className="destroy" onClick={this.props.onDestroy} />
+					<button type="button" className="btn btn-default  btn-lg destroy" onClick={this.props.onDestroy}>
+						<span className="glyphicon glyphicon-remove-circle "></span>
+					</button>	
 				</div>
 				<input
 					ref="editField"
