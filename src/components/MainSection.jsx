@@ -1,12 +1,11 @@
 import React from 'react';
 import TodoItem from './TodoItem.jsx';
+import Footer from './Footer.jsx';
 import todoStore from '../stores/todo';
 import todoActions from '../actions/todo';
 import commonConfig from '../configs/common';
 
-
 let {keys, filter} = commonConfig;
-
 
 class MainSection extends React.Component {
 
@@ -64,7 +63,6 @@ class MainSection extends React.Component {
 		todoActions.edit(todo.id);
 	}
 
-
 	save(todoToSave, text) {
 		todoActions.save({
 			todoToSave: todoToSave,
@@ -82,6 +80,10 @@ class MainSection extends React.Component {
 		todoActions.clearCompleted();
 	}
 
+	filter( type ){
+		todoActions.show(type);
+	}
+
 
 	render () {
 		var footer = null;
@@ -97,7 +99,7 @@ class MainSection extends React.Component {
 			default:
 				return true;
 			}
-		}, this);
+		}, this)
 
 		var todoItems = shownTodos.map(function (todo) {
 			return (
@@ -111,13 +113,26 @@ class MainSection extends React.Component {
 					onSave={this.save.bind(this, todo)}
 					onCancel={this.cancel}
 				/>
-			);
-		}, this);
+			)
+		}, this)
 
 		var activeTodoCount = todos.reduce(function (accum, todo) {
 			return todo.completed ? accum : accum + 1;
-		}, 0);
+		}, 0)
 
+
+		var completedCount = todos.length - activeTodoCount;
+
+		if (activeTodoCount || completedCount) {
+			footer =
+				<Footer
+					count={activeTodoCount}
+					completedCount={completedCount}
+					nowShowing={this.state.nowShowing}
+					onClearCompleted={this.clearCompleted}
+					onFilter={this.filter}
+				/>
+		}
 		
 		if (todos.length) {
 			main = (
@@ -132,7 +147,7 @@ class MainSection extends React.Component {
 						{todoItems}
 					</ul>
 				</section>
-			);
+			)
 		}
 
 		return (
@@ -152,7 +167,7 @@ class MainSection extends React.Component {
 				{main}
 				{footer}
 			</div>
-		);
+		)
 	}
 
 

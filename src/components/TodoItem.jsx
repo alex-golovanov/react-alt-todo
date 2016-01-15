@@ -73,7 +73,7 @@ class TodoItem extends React.Component {
 					<label onDoubleClick={this.handleEdit.bind(this)}>
 						{this.props.todo.title}
 					</label>
-					<button type="button" className="btn btn-default  btn-lg destroy" onClick={this.props.onDestroy}>
+					<button type="button" className="btn btn-default btn-lg destroy" onClick={this.props.onDestroy}>
 						<span className="glyphicon glyphicon-remove-circle "></span>
 					</button>	
 				</div>

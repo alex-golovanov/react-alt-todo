@@ -29,8 +29,12 @@ class todoStore {
  
   addTodo(todo) {
 		this.setState({
-			todos: this.state.todos.concat(todo)
+			//todos: this.state.todos.concat(todo)
+			todos: _.sortBy(this.state.todos.concat(todo), 'title').reverse()
+			//_.sortBy(users, ['user', 'age']);
 		});
+
+
 
 		this.store(LOCALSTORAGE_NAMESPACE + '.todos', this.state.todos);
 	}
@@ -79,6 +83,7 @@ class todoStore {
 				todo :
 				_.extend({}, command.todoToSave, {title: command.text});
 		});
+
 
 		this.setState({
 			todos: updatedTodos
